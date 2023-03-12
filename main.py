@@ -62,21 +62,56 @@ def login():
 def limbo():
     driver.refresh()
 
-   
     TYPE      = str(excel_data['TYPE'][0])
 
-    if(TYPE != 'RANDOM'):
+    if(TYPE == 'RANDOM'):
 
-        m      = random.randint(1, 10)
-        b      = random.randint(20, 50)
-        w      = random.randint(5, 30)
-        l      = random.randint(5, 30)
-        s      = random.randint(1000, 1100)
-        AMOUNT      = str(m)
-        BET         = str(b)
-        ON_WIN      = str(w)
-        ON_LOSE     = str(l)
-        STOP        = str(s)
+        # x      = random.randint(1, 10)
+
+        # if (x % 2 == 0):
+
+        #     m      = random.randint(20, 30)
+        #     b      = 0
+        #     w      = random.randint(100, 120)
+        #     l      = random.randint(100, 120)
+        #     s      = random.randint(10, 20)
+        #     s_lose = m * 30
+        #     AMOUNT      = str(m)
+        #     BET         = str(b)
+        #     ON_WIN      = str(w)
+        #     ON_LOSE     = str(l)
+        #     STOP        = str(s)
+        #     STOP_LOSE   = str(s_lose)
+        
+        # else:
+
+        #     m      = random.randint(50, 100)
+        #     b      = 0
+        #     w      = random.randint(100, 120)
+        #     l      = random.randint(100, 120)
+        #     s      = random.randint(50, 100)
+        #     s_lose = m * 30
+        #     AMOUNT      = str(m)
+        #     BET         = str(b)
+        #     ON_WIN      = str(w)
+        #     ON_LOSE     = str(l)
+        #     STOP        = str(s)
+        #     STOP_LOSE   = str(s_lose)
+
+            m      = random.randint(150, 250)
+            b      = 0
+            w      = random.randint(120, 140)
+            l      = random.randint(120, 140)
+            s      = m - 20
+            s_lose = m * 100
+            AMOUNT      = str(m)
+            BET         = str(b)
+            ON_WIN      = str(w)
+            ON_LOSE     = str(l)
+            STOP        = str(s)
+            STOP_LOSE   = str(s_lose)
+
+
     else:
         AMOUNT      = str(excel_data['AMOUNT'][0])
         BET         = str(excel_data['BET'][0])
@@ -86,6 +121,27 @@ def limbo():
         
 
     time.sleep(2)
+
+    
+    # berhenti jika uang mencapai hasil
+
+    idr = driver.find_element(By.XPATH, '//*[@id="header"]/div/div/div[2]/div[1]/div/div/div[2]/div/span').text
+
+    print(idr)
+
+    saldo = str(idr)
+
+    rp = saldo.split('.')
+
+    result = rp[0].replace('Rp','')
+
+    deposit = result.replace(',','')
+
+    if int(deposit) > 100000:
+
+        exit()
+    else:
+        pass
 
     auto = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, '//*[@id="Limbo-control-0"]/div[1]/button[2]/div')))
     auto.click() 
@@ -143,14 +199,30 @@ def limbo():
 
     time.sleep(3)
 
+    # value_lose = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, '//*[@id="Limbo-control-1"]/div[2]/div/div[6]/div[2]/input')))
+    # value_lose.click()
+    # value_lose.send_keys(Keys.CONTROL + "a")
+    # value_lose.send_keys(Keys.DELETE)
+    # time.sleep(2)
+    # value_lose.send_keys(STOP_LOSE)
+
+    # time.sleep(3)
+
     run = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, '//*[@id="Limbo-control-1"]/div[2]/div/button/div[text()="Start Auto Bet"]')))
     run.click()
 
-    time.sleep(10)
+    time.sleep(3)
+
+    reset()
+
+def stop(STOP_LOSE):
+    
+    WebDriverWait(driver, 100000).until(EC.presence_of_element_located((By.XPATH, f'//*[@id="header"]/div/div/div[2]/div[1]/div/div/div[2]/div/span[text()="{STOP_LOSE}"]')))
 
     reset()
 
 def reset():
+
     WebDriverWait(driver, 100000).until(EC.presence_of_element_located((By.XPATH, '//*[@id="Limbo-control-1"]/div[2]/div/button/div[text()="Start Auto Bet"]')))
     time.sleep(3)
 
