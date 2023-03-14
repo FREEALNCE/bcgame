@@ -72,8 +72,8 @@ def limbo():
 
         #     m      = random.randint(20, 30)
         #     b      = 0
-        #     w      = random.randint(100, 120)
-        #     l      = random.randint(100, 120)
+        #     w      = random.randint(110, 120)
+        #     l      = random.randint(110, 120)
         #     s      = random.randint(10, 20)
         #     s_lose = m * 30
         #     AMOUNT      = str(m)
@@ -85,12 +85,12 @@ def limbo():
         
         # else:
 
-        #     m      = random.randint(50, 100)
+        #     m      = random.randint(150, 250)
         #     b      = 0
-        #     w      = random.randint(100, 120)
-        #     l      = random.randint(100, 120)
-        #     s      = random.randint(50, 100)
-        #     s_lose = m * 30
+        #     w      = random.randint(120, 140)
+        #     l      = random.randint(120, 140)
+        #     s      = m - 20
+        #     s_lose = m * 100
         #     AMOUNT      = str(m)
         #     BET         = str(b)
         #     ON_WIN      = str(w)
@@ -100,15 +100,26 @@ def limbo():
 
             m      = random.randint(150, 250)
             b      = 0
+            arr = [
+                "1.10",
+                "1.15",
+                "1.25",
+                "1.2",
+                "1.3",
+                "1.35"
+            ]
+            presentase = random.randint(0, 5)
+
             w      = random.randint(120, 140)
             l      = random.randint(120, 140)
-            s      = m - 20
+            s      = m / 2
             s_lose = m * 100
             AMOUNT      = str(m)
             BET         = str(b)
             ON_WIN      = str(w)
             ON_LOSE     = str(l)
             STOP        = str(s)
+            PRESENTASE  = str(arr[presentase])
             STOP_LOSE   = str(s_lose)
 
 
@@ -137,7 +148,7 @@ def limbo():
 
     deposit = result.replace(',','')
 
-    if int(deposit) > 100000:
+    if int(deposit) > 80000:
 
         exit()
     else:
@@ -157,14 +168,14 @@ def limbo():
 
     time.sleep(3)
 
-    set = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, '//*[@id="Limbo-control-1"]/div[2]/div/div[2]/div[2]/input')))
-    set.click()
-    set.send_keys(Keys.CONTROL + "a")
-    set.send_keys(Keys.DELETE)
-    time.sleep(2)
-    set.send_keys(BET)
+    # set = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, '//*[@id="Limbo-control-1"]/div[2]/div/div[2]/div[2]/input')))
+    # set.click()
+    # set.send_keys(Keys.CONTROL + "a")
+    # set.send_keys(Keys.DELETE)
+    # time.sleep(2)
+    # set.send_keys(BET)
 
-    time.sleep(3)
+    # time.sleep(3)
 
     win_slider = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, '//*[@id="Limbo-control-1"]/div[2]/div/div[3]/div[2]/div[1]/div[1]')))
     win_slider.click()
@@ -198,6 +209,16 @@ def limbo():
     lose.send_keys(ON_LOSE)
 
     time.sleep(3)
+
+    value_lose = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, '//*[@id="game-Limbo"]/div/div[2]/div[2]/div[3]/div[1]/div[2]/input')))
+    value_lose.click()
+    value_lose.send_keys(Keys.CONTROL + "a")
+    value_lose.send_keys(Keys.DELETE)
+    time.sleep(2)
+    value_lose.send_keys(PRESENTASE)
+
+    time.sleep(3)
+
 
     # value_lose = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, '//*[@id="Limbo-control-1"]/div[2]/div/div[6]/div[2]/input')))
     # value_lose.click()
