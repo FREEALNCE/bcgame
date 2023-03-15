@@ -98,15 +98,15 @@ def limbo():
         #     STOP        = str(s)
         #     STOP_LOSE   = str(s_lose)
 
-            m      = random.randint(150, 250)
+            m      = random.randint(100, 200)
             b      = 0
             arr = [
-                "1.10",
+                "1.17",
                 "1.15",
-                "1.25",
+                "1.10",
                 "1.2",
                 "1.3",
-                "1.35"
+                "1.25"
             ]
             presentase = random.randint(0, 5)
 
